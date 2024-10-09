@@ -27,8 +27,16 @@ pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     let processing_fee = 1;
     let cost_per_item = 5;
     let qty = item_quantity.parse::<i32>();
-
-    Ok(qty * cost_per_item + processing_fee)
+    match item_quantity.parse::<i32>() {
+        Ok(qty) => {
+            // 计算总成本并返回
+            Ok(qty * cost_per_item + processing_fee)
+        },
+        Err(e) => {
+            // 返回解析错误
+            Err(e) // 直接返回 ParseIntError
+        }
+    }
 }
 
 #[cfg(test)]
